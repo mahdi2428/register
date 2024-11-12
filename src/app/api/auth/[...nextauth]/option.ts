@@ -1,7 +1,14 @@
 import type { Awaitable, NextAuthOptions, RequestInternal, User } from "next-auth";
 import GoogleProvider from 'next-auth/providers/google'
 import  CredentialsProvider  from "next-auth/providers/credentials";
+import { compare } from 'bcrypt'
+import { sql } from "@vercel/postgres";
+
+
 export const options:NextAuthOptions ={
+    session :{
+        strategy :"jwt"
+    },
     providers : [
         GoogleProvider({
             clientId: process.env.GOOGLE_ID as string,
@@ -10,24 +17,29 @@ export const options:NextAuthOptions ={
         CredentialsProvider({
             name: 'Credentail',
             credentials: {
-                username : {
-                    label : "username : ",
+                email : {
                     type : "text",
-                    placeholder : "cool-name"
                 },
                 password : {
-                    label : "password :",
                     type : "password"
                 }
             },
-            async authorize(credentials){
-                const user = { id: "42", username: 'amir', password: "amir1379" }; 
+            async authorize(credentials ,req){
+                const respond = await sql`
+                SELECT * FROM users WHERE email = ${credentials?.email}`
+                const user =respond.rows[0]
 
-                if (credentials?.username === user.username && credentials?.password === user.password) {
-                    return user;
-                } else {
-                    return null; 
+                const passwordCompartion = await compare(credentials?.password || "", user.password)
+                console.log({passwordCompartion})
+
+                if(passwordCompartion){
+                    return{
+                        id : user.id ,
+                        email : user.email
+                    }
                 }
+
+                return null
             }
         })
     ],
