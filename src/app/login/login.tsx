@@ -91,7 +91,7 @@ export default  function Login() {
                 <p>اگر رمز خود را فراموش کرده اید <Link className="text-blue-400" href='/forgotpassword'>کلیک کنید</Link ></p>
                 <p>اگر هنوز ثبت نام نکرده اید اینجا <Link className="text-blue-400" href='/register'>کلیک کنید</Link ></p>
             </div>
-            <Button type="submit">ثبت نام</Button>
+            <Button type="submit">ورود </Button>
           </form>
         </Form>
       </div>
