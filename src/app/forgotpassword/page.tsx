@@ -11,3 +11,5 @@ const ForgotPasswordPage = async()=>{
     <ForgotPassword />
   )
 }
+
+export default ForgotPasswordPage

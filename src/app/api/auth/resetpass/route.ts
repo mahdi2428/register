@@ -25,11 +25,11 @@ export async function POST(
       SET 
         password = ${hashedPassword}, 
         resetToken = NULL
-      WHERE resettoken = ${token}  
+      WHERE id = ${userResult.rows[0].id}  
     `;
-    return NextResponse.json({ message: 'رمز با موفقیت تغییر کرد' })
+    return NextResponse.json({success:true, message: 'رمز با موفقیت تغییر کرد' })
     }else{
-        console.log("تغییر رمز انجام نشد")
+      return NextResponse.json({success:false, message: 'تغییر رمز انجام نشد' })
     }
 
     

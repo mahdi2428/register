@@ -37,7 +37,6 @@ type FormData = z.infer<typeof FormSchema>;
     },
     resolver: zodResolver(FormSchema),
   });
-
   const onSubmit = async(data: FormData) => {
     try {
       if(data.password === data.comfrimpassword){

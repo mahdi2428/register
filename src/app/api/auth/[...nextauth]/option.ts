@@ -29,7 +29,7 @@ export const options:NextAuthOptions ={
                 SELECT * FROM users WHERE email = ${credentials?.email}`
                 const user =respond.rows[0]
 
-                const passwordCompartion = await compare(credentials?.password || "", user.password)
+                const passwordCompartion = await compare(credentials?.password|| "", user.password)
                 console.log({passwordCompartion})
 
                 if(passwordCompartion){

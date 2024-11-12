@@ -43,7 +43,6 @@ export default  function Login() {
         password : data.password,
         redirect : false
     })
-    console.log({respond})
     if(respond?.error === null){
       alert("خوش امدید ")
       router.push('/')
